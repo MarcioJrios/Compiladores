@@ -12,11 +12,11 @@
 
 <ops> ::= <if> | <while> | 'eps'
 
-<if> ::= 'if'  <id><oprel> '{' <ops> '}' <else>
+<if> ::= 'if'  <id><oprel> '{' <id><oprel><ops> '}' <else>
 
 <else> ::= 'else' '{' <id> <ops>'}'
 
-<while> ::= 'while' <id><oprel> '{' <ops> '}'
+<while> ::= 'while' <id><oprel> '{' <id><oprel><ops> '}'
 
 <igual> ::= '='<id> '/'<var> | '='<id> | <id>
 
