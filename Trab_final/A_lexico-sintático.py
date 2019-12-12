@@ -408,14 +408,14 @@ i = 0
 for item in estados2:
 	for simb in simbolo:
 		if estados2[i].get(simb[0]) == None:
-			estados2[i].update({simb[0]: 'E'})
+			estados2[i].update({simb[0]: 'Error'})
 	i = i+1
 
 Error = dict()
 for simb in simbolo:
-	Error.update({simb[0]: 'E'})
+	Error.update({simb[0]: 'Error'})
 
-estados.append('*E')
+estados.append('*Error')
 estados2.append(Error)
 
 
@@ -482,7 +482,7 @@ for row in arquivo:
 						pass
 				else:
 					if count == tam:
-						fita.append('*E')
+						fita.append('*Error')
 						break
 					else:
 						pass
@@ -496,7 +496,7 @@ root = tree.getroot()
 for symbol in root.iter('Symbol'):
 	for x in TS:
 		if x[2] == symbol.attrib['Name']:
-			x[1] = symbol.attrib['Index'] 
+			x[1].replace('*','') = symbol.attrib['Index'] 
 		elif x['Rotulo'][0] == '.' and x['Rotulo'][-1] == '~' and symbol.attrib['Name'] == '.name.':
 			x['Estado'] = symbol.attrib['Index']
 		elif x['Rotulo'][0] == '0' and symbol.attrib['Name'] == '0constant':
