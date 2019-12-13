@@ -33,7 +33,7 @@ for row in texto: #percorre todos os tokens e gramaticas para obter os simbolos 
 			i = 0
 		while i < tam:
 			if "\n" not in row[i]:
-				if row[i].islower():
+				if row[i].islower() or row[i].isnumeric():
 					aux = []
 					aux.append(row[i])
 					if aux not in simbolo:
@@ -421,8 +421,6 @@ for simb in simbolo:
 estados.append('*Error')
 estados2.append(Error)
 
-
-
 ############################################################################
 ###################       Etapa lexica       ###############################
 
@@ -441,7 +439,7 @@ with open('CodEntrada.txt', newline='') as inputfile:
 estadoA = '0' #estado atual do automato
 fita = []
 line = 0 # linha do arquivo
-TS = [ ] # Tabela de simbolos
+TS = [] # Tabela de simbolos
 for row in arquivo:
 	line = line +1
 	for a in row:
@@ -492,18 +490,18 @@ for row in arquivo:
 			TS.append([line, estadoA, token.replace('\t', '')]) # Adiciona a linha, estado final(fita) e rotulo na TS
 			estadoA = '0'
 
-
-""" xml_parser = "grammar.xml"
+xml_parser = "grammar.xml"
 tree = ET.parse(xml_parser)
 root = tree.getroot()
 for symbol in root.iter('Symbol'):
+	i = 0
 	for x in TS:
-		if x[2] == symbol.attrib['Name']:
-			x[1].replace('*','') = symbol.attrib['Index'] 
-		elif x['Rotulo'][0] == '.' and x['Rotulo'][-1] == '~' and symbol.attrib['Name'] == '.name.':
-			x['Estado'] = symbol.attrib['Index']
-		elif x['Rotulo'][0] == '0' and symbol.attrib['Name'] == '0constant':
-			x['Estado'] = symbol.attrib['Index'] """
+		if x[1] == symbol.attrib['Name'] and symbol.attrib['Type'] == "1":
+			TS[i][1] = symbol.attrib['Index'] 
+		elif x[2] == symbol.attrib['Name'] and symbol.attrib['Type'] == "1":
+			TS[i][1] = symbol.attrib['Index']
+		i = i+1
+
 			
 
 print(arquivo)
