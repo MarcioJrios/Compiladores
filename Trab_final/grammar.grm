@@ -2,22 +2,16 @@
 "Start Symbol" = <S>
 <S> ::= <var> <ops>
      
-<var> ::= 'name' '=' 'name' <var> | 'name' '=' <num0> <var>| '&'
+<var> ::= '.name' '=' '.name' <var> | '.name' '=' '.num' <var>| <>
 
-<oprel> ::= '+'<num> | '-'<num> | '/'<num> | '*'<num> | '+' 'name' | '-' 'name' | '/' 'name' | '*' 'name' | '='<igual> | '&'
+<oprel> ::= 'sum''.num' | 'sub''.num' | 'div''.num' | 'mult''.num' | 'sum' '.name' | 'sub' '.name' | 'div' '.name' | 'mult' '.name' | 'equal'<igual> | <>
 
-<num0> ::= '0'<num> | '1'<num> | '2'<num> | '3'<num> | '4'<num> | '5'<num> | '6'<num> | '7'<num> | '8'<num> | '9'<num>
+<ops> ::= <if> | <while> | <>
 
-<num> ::= '0'<num> | '1'<num> | '2'<num> | '3'<num> | '4'<num> | '5'<num> | '6'<num> | '7'<num> | '8'<num> | '9'<num> | '&'
+<if> ::= 'if'  '.name'<oprel> 'obracers' <var><ops> 'cbracers' <else>
 
-<ops> ::= <if> | <while> | '&'
+<else> ::= 'else' 'obracers' <var><ops> 'cbracers'
 
-<if> ::= 'if'  'name'<oprel> '{' <var><ops> '}' <else>
+<while> ::= 'while' '.name'<oprel> 'obracers' <var><ops> 'cbracers'
 
-<else> ::= 'else' '{' <var><ops>'}'
-
-<while> ::= 'while' 'name'<oprel> '{' <var><ops> '}'
-
-<igual> ::= '=' 'name' | 'name'
-
-
+<igual> ::= 'equal' '.name' | '.name'

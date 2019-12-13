@@ -117,7 +117,7 @@ for token in lista: #para cada string(token) na lista, executa
 			estados.append(aux)			 #atualiza para um estado final
 			estadoProd = estadoProd+1
 		i = i+1
-
+print(simbolo)
 replacesL = [] #lista de nao terminais{S, A, B, etc} que receberam um novo estado
 replacesD = {} #dicionario que guarda a relacao do nao terminal e seu novo estado. Ex: {A: 10, B: 14}
 i = 0 #index do caracter em cada linha
@@ -125,6 +125,7 @@ regra = 0 #salva em qual regra(estado) esta sendo inserido as producoes
 epsilon = 0 #se for 1, a gramatica possui epsilon
 for a in texto:
 	row = str(a)
+	print(row)
 	if '::=' in row: # verifica se e uma gramatica
 		if '&' in row: # verifica se possui epsilon(&)
 			epsilon = 1
@@ -144,6 +145,8 @@ for a in texto:
 						regra = int(replacesD.get(row[i+1]))
 						if epsilon == 1:
 							index = int(replacesD.get(row[i+1]))
+							print(index)
+							print(estados)
 							if '*' not in estados[index]:
 								aux = '*' + estados[index]
 								estados[regra] = aux
@@ -157,7 +160,7 @@ for a in texto:
 								estadoProd = estadoProd+1
 								break
 						if epsilon == 1:
-							AddDict('*'+estadoProd)
+							AddDict('*'+str(estadoProd))
 						else:
 							AddDict(estadoProd)
 						newStr = str(estadoProd)
@@ -490,7 +493,7 @@ for row in arquivo:
 			estadoA = '0'
 
 
-xml_parser = "grammar.xml"
+""" xml_parser = "grammar.xml"
 tree = ET.parse(xml_parser)
 root = tree.getroot()
 for symbol in root.iter('Symbol'):
@@ -500,7 +503,7 @@ for symbol in root.iter('Symbol'):
 		elif x['Rotulo'][0] == '.' and x['Rotulo'][-1] == '~' and symbol.attrib['Name'] == '.name.':
 			x['Estado'] = symbol.attrib['Index']
 		elif x['Rotulo'][0] == '0' and symbol.attrib['Name'] == '0constant':
-			x['Estado'] = symbol.attrib['Index']  
+			x['Estado'] = symbol.attrib['Index'] """
 			
 
 print(arquivo)

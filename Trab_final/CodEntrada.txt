@@ -1,3 +1,3 @@
-if a it
+while a if
 	a
-at f
+div f
