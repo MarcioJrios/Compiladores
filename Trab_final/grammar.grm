@@ -2,16 +2,16 @@
 "Start Symbol" = <S>
 <S> ::= <var> <ops>
      
-<var> ::= '.46' '=' '.46' <var> | '.46' '=' '.num' <var>| <>
+<var> ::= '*46' '=' '*46' <var> | '*46' '=' '*47' <var>| <>
 
-<oprel> ::= 'sum''.num' | 'sub''.num' | 'div''.num' | 'mult''.num' | 'sum' '.46' | 'sub' '.46' | 'div' '.46' | 'mult' '.46' | 'equal'<igual> | <>
+<oprel> ::= 'sum''*47' | 'sub''*47' | 'div''*47' | 'mult''*47' | 'sum' '*46' | 'sub' '*46' | 'div' '*46' | 'mult' '*46' | 'equal'<igual> | <>
 
 <ops> ::= <if> | <while> | <>
 
-<if> ::= 'if'  '.46'<oprel> 'obracers' <var><ops> 'cbracers' <else>
+<if> ::= 'if'  '*46'<oprel> 'obracers' <var><ops> 'cbracers' <else>
 
 <else> ::= 'else' 'obracers' <var><ops> 'cbracers'
 
-<while> ::= 'while' '.46'<oprel> 'obracers' <var><ops> 'cbracers'
+<while> ::= 'while' '*46'<oprel> 'obracers' <var><ops> 'cbracers'
 
-<igual> ::= 'equal' '.46' | '.46'
+<igual> ::= 'equal' '*46' | '*46'
