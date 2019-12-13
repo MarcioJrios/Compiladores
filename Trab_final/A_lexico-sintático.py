@@ -1,6 +1,6 @@
 #Compilador
-#Academico: Marcio J. Rios
-#github: marciojrios
+#Academicos: Marcio J. Rios e Marcelo E. Knob
+#github: marciojrios 
 #Universidade Federal da Fronteira Sul- UFFS - Compiladores
 
 import csv
@@ -502,7 +502,79 @@ for symbol in root.iter('Symbol'):
 			TS[i][1] = symbol.attrib['Index']
 		i = i+1
 
-			
+def AnaliseSintatica():
+	for x in TS:
+		fitaS.append(x[1])
+		# print(x)      #DEBUG TABELA DE SÍMBOLOS
+	fitaS.append(str(0))
+	# print("\n Fita de saída:", fitaS, "\n")       #DEBUG FITA DE SAÍDA
+	flag = 0
+	for erro in TS:
+		if erro[1] == '*Error':
+			print('Erro Léxico: linha "{}", erro "{}"' .format(erro[0], erro[0]))
+			flag = 1
+	if flag == 1:
+		return 0
+
+	pilha = []
+	pilha.append(0)
+	erro = 0
+	Rc = 0
+	controle = 0
+	for fita in fitaS:
+		while 1:
+			if erro == 1 or erro == -1:
+				break
+			for linha in root.iter('LALRState'):
+				if erro == 1 or erro == -1:
+					break
+				elif linha.attrib['Index'] == str(pilha[-1]):
+					for coluna in linha:
+						if coluna.attrib['SymbolIndex'] == fita:
+
+							if coluna.attrib['Action'] == '1':             
+								controle = 0
+								pilha.append(fita)
+								pilha.append(int(coluna.attrib['Value']))
+								# print("\nEmpilha: ", pilha)     #DEBUG EMPILHA
+								break
+
+							elif coluna.attrib['Action'] == '2':            
+								controle = 1
+								for prod in root.iter('Production'):
+									if prod.attrib['Index'] == coluna.attrib['Value']:
+										Rx = 2 * int(prod.attrib['SymbolCount'])
+										break
+								if len(pilha) <= Rx:
+									erro = 1
+									break
+								for remove in range(Rx):
+									pilha.pop()
+									# print("\nRedução 1: ", pilha)     #DEBUG REDUÇÃO
+								for linhaR in root.iter('LALRState'):
+									if linhaR.attrib['Index'] == str(pilha[-1]):
+										for colunaR in linhaR:
+											if colunaR.attrib['SymbolIndex'] == prod.attrib['NonTerminalIndex']:
+												pilha.append(prod.attrib['NonTerminalIndex'])
+												pilha.append(int(colunaR.attrib['Value']))
+												Rc = 1
+												# print("\nRedução 2: ", pilha)       #DEBUG APÓS REDUÇÃO
+												break
+									if Rc == 1:
+										Rc = 0
+										break
+
+							elif coluna.attrib['Action'] == '4':          
+								controle = 0
+								erro = -1
+								# print("\nAceita: ", pilha)      #DEBUG ACEITA
+								break
+					break
+			if controle == 0:
+				break
+
+	if erro != -1:
+		print("\nErro de sintaxe!\n")
 
 print(arquivo)
 print(estadosAlcancaveis)
