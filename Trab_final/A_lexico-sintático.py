@@ -440,6 +440,7 @@ estadoA = '0' #estado atual do automato
 fita = []
 line = 0 # linha do arquivo
 TS = [] # Tabela de simbolos
+fitaS = []
 for row in arquivo:
 	line = line +1
 	for a in row:
@@ -536,7 +537,7 @@ def AnaliseSintatica():
 								controle = 0
 								pilha.append(fita)
 								pilha.append(int(coluna.attrib['Value']))
-								# print("\nEmpilha: ", pilha)     #DEBUG EMPILHA
+								print("\nEmpilha: ", pilha)     #DEBUG EMPILHA
 								break
 
 							elif coluna.attrib['Action'] == '2':            
@@ -550,7 +551,7 @@ def AnaliseSintatica():
 									break
 								for remove in range(Rx):
 									pilha.pop()
-									# print("\nRedução 1: ", pilha)     #DEBUG REDUÇÃO
+									print("\nRedução 1: ", pilha)     #DEBUG REDUÇÃO
 								for linhaR in root.iter('LALRState'):
 									if linhaR.attrib['Index'] == str(pilha[-1]):
 										for colunaR in linhaR:
@@ -558,7 +559,7 @@ def AnaliseSintatica():
 												pilha.append(prod.attrib['NonTerminalIndex'])
 												pilha.append(int(colunaR.attrib['Value']))
 												Rc = 1
-												# print("\nRedução 2: ", pilha)       #DEBUG APÓS REDUÇÃO
+												print("\nRedução 2: ", pilha)       #DEBUG APÓS REDUÇÃO
 												break
 									if Rc == 1:
 										Rc = 0
@@ -567,7 +568,7 @@ def AnaliseSintatica():
 							elif coluna.attrib['Action'] == '4':          
 								controle = 0
 								erro = -1
-								# print("\nAceita: ", pilha)      #DEBUG ACEITA
+								print("\nAceita: ", pilha)      #DEBUG ACEITA
 								break
 					break
 			if controle == 0:
@@ -582,3 +583,4 @@ print(simbolo)
 printTable()
 print(fita)
 print(TS)
+AnaliseSintatica()
