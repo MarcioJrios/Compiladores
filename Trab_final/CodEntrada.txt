@@ -1,3 +1,10 @@
 ae equal 0
 while ae equal 2 obracers
+iou equal 30
+if aea equal equal iou obracers
+iou equal iou
+cbracers
+else ae equal equal iou obracers
+iou equal iou
+cbracers
 cbracers
